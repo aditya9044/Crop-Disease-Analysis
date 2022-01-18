@@ -1,0 +1,117 @@
+﻿Mysql
+-------------------------------------------------
+mysql -u root -p
+labuserbdh
+
+
+create database raw;
+use raw;
+
+
+creation of tables:
+-------------------------------------------------------
+create table place_master(
+place_id INT NOT NULL,
+village VARCHAR(40) NOT NULL,
+taluka VARCHAR(40) NOT NULL,
+district VARCHAR(40) NOT NULL,
+PRIMARY KEY(place_id) );
+
+
+create table farmer_master(
+farmer_id INT NOT NULL,
+name VARCHAR(50),
+place_id INT NOT NULL,
+land_area DOUBLE NOT NULL,
+PRIMARY KEY(farmer_id),
+FOREIGN KEY(place_id) REFERENCES place_master(place_id) );
+
+
+
+
+create table crop_master(
+crop_id INT NOT NULL,
+crop_type VARCHAR(30) NOT NULL,
+season VARCHAR(30) NOT NULL,
+PRIMARY KEY(crop_id) );
+
+
+create table reason(
+reason_id INT NOT NULL,
+reason VARCHAR(30),
+PRIMARY KEY(reason_id) );
+
+
+create table disease(
+disease_id INT NOT NULL,
+disease_name VARCHAR(50) NOT NULL,
+type VARCHAR(50),
+symptoms VARCHAR(200), 
+PRIMARY KEY(disease_id) );
+
+
+create table cultivation(
+farmer_id INT NOT NULL,
+place_id INT NOT NULL,
+dt_start date,
+dt_harvesting date,
+crop_id INT NOT NULL,
+yield_estimated DOUBLE,
+yield DOUBLE,
+loss_percentage DOUBLE,
+reason_id INT,
+disease_id INT,
+temperature DOUBLE,
+FOREIGN KEY(farmer_id) REFERENCES farmer_master(farmer_id),
+FOREIGN KEY(crop_id) REFERENCES crop_master(crop_id),
+FOREIGN KEY(reason_id) REFERENCES reason(reason_id),
+FOREIGN KEY(disease_id) REFERENCES disease(disease_id),
+FOREIGN KEY(place_id) REFERENCES place_master(place_id) );
+
+
+loading the datasets into mysql:
+---------------------------------------------------------------------------
+
+
+load data local infile 'Place_master.csv'                                         
+into table place_master
+fields terminated by ','
+lines terminated by '\n'
+ignore 1 lines;
+
+
+
+
+load data local infile 'Farmer_master.csv'                                         
+into table farmer_master
+fields terminated by ','
+lines terminated by '\n'
+ignore 1 lines;
+
+
+load  data local infile 'Crop_master.csv'                                         
+into table crop_master
+fields terminated by ','
+lines terminated by '\n'
+ignore 1 lines;
+
+
+load data local infile 'Reason_raw.csv'                                         
+into table reason
+fields terminated by ','
+lines terminated by '\n'
+ignore 1 lines;
+
+
+load data local infile 'Disease_raw.csv'                                         
+into table disease
+fields terminated by ','
+lines terminated by '\n'
+ignore 1 lines;
+
+
+load data local infile 'Cultivation_master.csv'                                         
+into table cultivation
+fields terminated by ','
+lines terminated by '\n'
+ignore 1 lines;

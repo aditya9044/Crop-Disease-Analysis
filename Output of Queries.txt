@@ -1,0 +1,368 @@
+﻿Output of fact table :
+
+
+select * from fact;
+
+
+219        308        29000.0        30000.0        -3.45        500        408
+127        307        48000.0        45000.0        6.25        522        401
+123        303        32000.0        30000.0        6.25        519        401
+114        314        26000.0        20000.0        23.08        523        401
+115        315        30000.0        28000.0        6.67        517        401
+208        317        19000.0        18000.0        5.26        511        401
+216        305        32000.0        30000.0        6.25        508        401
+117        317        39000.0        40000.0        -2.56        500        404
+118        318        44000.0        37000.0        15.91        505        401
+207        316        12000.0        12000.0        0.0        523        401
+108        308        27000.0        27000.0        0.0        500        408
+204        313        52000.0        50000.0        3.85        514        401
+229        318        39000.0        37000.0        5.13        517        401
+212        301        21000.0        22000.0        -4.76        500        405
+218        307        44000.0        37000.0        15.91        502        401
+210        319        62000.0        51000.0        17.74        516        401
+225        314        38000.0        37000.0        2.63        525        401
+116        316        34000.0        32000.0        5.88        512        401
+201        310        21000.0        20000.0        4.76        511        401
+213        302        39000.0        41000.0        -5.13        500        406
+221        310        28000.0        25000.0        10.71        517        401
+119        319        29000.0        26000.0        10.34        516        401
+110        310        39000.0        37500.0        3.85        516        401
+105        305        42000.0        40000.0        4.76        519        401
+230        319        42000.0        40000.0        4.76        528        401
+211        320        24000.0        27000.0        -12.5        500        402
+128        308        43000.0        40000.0        6.98        518        401
+224        313        32000.0        30000.0        6.25        521        401
+217        306        45000.0        40000.0        11.11        509        401
+214        303        43000.0        53000.0        -23.26        500        408
+231        320        41000.0        37000.0        9.76        501        401
+222        311        39000.0        38000.0        2.56        501        401
+111        311        34000.0        38000.0        -11.76        500        403
+227        316        54000.0        45000.0        16.67        509        401
+228        317        23000.0        22000.0        4.35        503        401
+203        312        19000.0        23000.0        -21.05        500        403
+223        312        54000.0        49000.0        9.26        506        401
+113        313        18000.0        17000.0        5.56        526        401
+205        314        34000.0        31000.0        8.82        526        401
+107        307        22000.0        21000.0        4.55        508        401
+215        304        38000.0        39000.0        -2.63        500        406
+129        309        28000.0        25000.0        10.71        513        401
+102        302        35000.0        32000.0        8.57        506        401
+103        303        33000.0        35000.0        -6.06        500        402
+220        309        38000.0        32000.0        15.79        530        401
+124        304        37000.0        39000.0        -5.41        500        402
+121        301        43000.0        41000.0        4.65        502        401
+209        318        35000.0        32000.0        8.57        519        401
+202        311        33000.0        31000.0        6.06        507        401
+226        315        19000.0        15000.0        21.05        516        401
+125        305        42000.0        40000.0        4.76        516        401
+126        306        50000.0        49000.0        2.0        521        401
+112        312        41000.0        40000.0        2.44        517        401
+101        301        40000.0        35000.0        12.5        502        401
+122        302        27000.0        26000.0        3.7        529        401
+206        315        31000.0        45000.0        -45.16        500        405
+109        309        31000.0        29000.0        6.45        509        401
+106        306        38000.0        39000.0        -2.63        500        405
+120        320        32000.0        30000.0        6.25        508        401
+104        304        30000.0        29000.0        3.33        523        401
+
+
+1)Display loss_percentage of distinct villages:
+
+
+select f.place_id, p.village, f.loss_percentage 
+from fact f join place_dim p
+on f.place_id = p.place_id
+where f.loss_percentage > 0.00
+order by f.loss_percentage desc;
+
+
+output:
+114        Varshi        23.08
+226        Itave        21.05
+210        Andhari        17.74
+227        Waghare        16.67
+118        Palshet        15.91
+218        Shelgaon        15.91
+220        Ambadi        15.79
+101        Agartakali        12.5
+217        Mukhpat        11.11
+221        Kasali        10.71
+129        Shirur        10.71
+119        Rasalpur        10.34
+231        Haripura        9.76
+223        Mehun        9.26
+205        Mandki        8.82
+102        Panchak        8.57
+209        Hingane        8.57
+128        Tisgaon        6.98
+115        Indiranagar        6.67
+109        Manori        6.45
+127        Hiranwadi        6.25
+120        Rolas        6.25
+224        Gahule        6.25
+216        Jalu        6.25
+123        Maparwadi        6.25
+202        Ambare        6.06
+116        Mulane        5.88
+113        Vajagaon        5.56
+208        Dhanori        5.26
+229        Tandalwadi        5.13
+125        Astane        4.76
+230        Bhortek        4.76
+105        Girnare        4.76
+201        Borgaon        4.76
+121        Dhulgaon        4.65
+107        Shirale        4.55
+228        Lalmati        4.35
+204        Kothali        3.85
+110        Vanarvadi        3.85
+122        Nandesar        3.7
+104        Metgharkilla        3.33
+225        Neri        2.63
+222        Ramgad        2.56
+112        Bhusani        2.44
+126        Satane        2.0
+
+
+2)Display the disease which is affected to the crops where loss_percentage is maximum:
+
+
+select f.place_id, p.village, f.loss_percentage, d.disease_name
+from fact f join place_dim p
+on f.place_id = p.place_id
+join disease_dim d
+on f.disease_id = d.disease_id
+where f.place_id = 114;
+
+
+Output:
+114        Varshi        23.08        snow mold
+
+
+3)Display disease according to seasons and crop_type:
+
+
+select f.crop_id,c.crop_type,f.disease_id, d.disease_name
+from fact f join crop_dim c
+on f.crop_id = c.crop_id
+join disease_dim d
+on f.disease_id = d.disease_id
+order by f.crop_id;
+
+
+Output:
+301        Arhar/Tur        502        bacterial wilt
+301        Arhar/Tur        500        Invalid Disease
+301        Arhar/Tur        502        bacterial wilt
+302        Bajra        500        Invalid Disease
+302        Bajra        529        psorosis
+302        Bajra        506        rot
+303        Cotton        519        gray mold rot
+303        Cotton        500        Invalid Disease
+303        Cotton        500        Invalid Disease
+304        Groundnut        523        snow mold
+304        Groundnut        500        Invalid Disease
+304        Groundnut        500        Invalid Disease
+305        Jowar        519        gray mold rot
+305        Jowar        508        anthracnose
+305        Jowar        516        leaf blister
+306        Maize        500        Invalid Disease
+306        Maize        521        corn smut
+306        Maize        509        black knot
+307        Moong        502        bacterial wilt
+307        Moong        522        bunt smut
+307        Moong        508        anthracnose
+308        Sesamum        500        Invalid Disease
+308        Sesamum        518        oak wilt
+308        Sesamum        500        Invalid Disease
+309        Soyabean        509        black knot
+309        Soyabean        513        dutch elm disease
+309        Soyabean        530        spotted wilt
+310        Sunflower        511        clubroot
+310        Sunflower        517        powdery mildew
+310        Sunflower        516        leaf blister
+311        Urad        507        scab
+311        Urad        500        Invalid Disease
+311        Urad        501        aster yellows
+312        Gram        500        Invalid Disease
+312        Gram        517        powdery mildew
+312        Gram        506        rot
+313        Wheat        521        corn smut
+313        Wheat        526        Verticillium wilt
+313        Wheat        514        ergot
+314        Sugarcane        526        Verticillium wilt
+314        Sugarcane        523        snow mold
+314        Sugarcane        525        scab
+315        Tomato        516        leaf blister
+315        Tomato        500        Invalid Disease
+315        Tomato        517        powdery mildew
+316        Onion        509        black knot
+316        Onion        512        damping-off
+316        Onion        523        snow mold
+317        Banana        500        Invalid Disease
+317        Banana        511        clubroot
+317        Banana        503        rice bacterial blight
+318        Ragi        519        gray mold rot
+318        Ragi        505        crown gall
+318        Ragi        517        powdery mildew
+319        Safflower        528        mosaic
+319        Safflower        516        leaf blister
+319        Safflower        516        leaf blister
+320        Niger Seed        500        Invalid Disease
+320        Niger Seed        508        anthracnose
+320        Niger Seed        501        aster yellows
+
+
+4)Display reason according to crop seasons.
+
+
+select f.crop_id, c.season, f.reason_id, r.reason 
+from fact f join crop_dim c 
+on f.crop_id = c.crop_id
+join reason_dim r on 
+f.reason_id = r.reason_id
+order by f.crop_id;
+
+
+output:
+301        Kharif        401        Diseases
+301        Kharif        401        Diseases
+301        Kharif        405        Acidity Stress
+302        Kharif        401        Diseases
+302        Kharif        401        Diseases
+302        Kharif        406        Floods
+303        Kharif        402        Heat Stress
+303        Kharif        401        Diseases
+303        Kharif        408        Soil Infertility
+304        Kharif        401        Diseases
+304        Kharif        402        Heat Stress
+304        Kharif        406        Floods
+305        Kharif        401        Diseases
+305        Kharif        401        Diseases
+305        Kharif        401        Diseases
+306        Kharif        405        Acidity Stress
+306        Kharif        401        Diseases
+306        Kharif        401        Diseases
+307        Kharif        401        Diseases
+307        Kharif        401        Diseases
+307        Kharif        401        Diseases
+308        Kharif        408        Soil Infertility
+308        Kharif        401        Diseases
+308        Kharif        408        Soil Infertility
+309        Kharif        401        Diseases
+309        Kharif        401        Diseases
+309        Kharif        401        Diseases
+310        Kharif        401        Diseases
+310        Kharif        401        Diseases
+310        Kharif        401        Diseases
+311        Kharif        403        Cold Stress
+311        Kharif        401        Diseases
+311        Kharif        401        Diseases
+312        Rabi        403        Cold Stress
+312        Rabi        401        Diseases
+312        Rabi        401        Diseases
+313        Rabi        401        Diseases
+313        Rabi        401        Diseases
+313        Rabi        401        Diseases
+314        Whole Year        401        Diseases
+314        Whole Year        401        Diseases
+314        Whole Year        401        Diseases
+315        Whole Year        401        Diseases
+315        Whole Year        405        Acidity Stress
+315        Whole Year        401        Diseases
+316        Whole Year        401        Diseases
+316        Whole Year        401        Diseases
+316        Whole Year        401        Diseases
+317        Whole Year        404        Soil Salinity
+317        Whole Year        401        Diseases
+317        Whole Year        401        Diseases
+318        Kharif        401        Diseases
+318        Kharif        401        Diseases
+318        Kharif        401        Diseases
+319        Rabi        401        Diseases
+319        Rabi        401        Diseases
+319        Rabi        401        Diseases
+320        Kharif        401        Diseases
+320        Kharif        402        Heat Stress
+320        Kharif        401        Diseases
+
+
+
+
+5) Calculate loss_percentage,according to seasons.
+
+
+select c.season, round((sum(f.total_yield_estimated)-sum(f.total_yield))/sum(total_yield_estimated)*100,2)
+from fact f join crop_dim c
+on f.crop_id = c.crop_id
+where f.loss_percentage > 0.00
+group by c.season;
+
+
+output:
+Kharif      7.58
+Rabi        8.18
+Whole Year  10.47
+
+
+
+
+6)Display diseases as per village:
+
+
+select f.place_id, p.village,f.disease_id,d.disease_name
+from fact f join disease_dim d
+on f.disease_id = d.disease_id
+join place_dim p
+on f.place_id = p.place_id
+where f.disease_id != 500
+order by f.place_id;
+
+
+output:
+101        Agartakali        502        bacterial wilt
+102        Panchak        506        rot
+104        Metgharkilla        523        snow mold
+105        Girnare        519        gray mold rot
+107        Shirale        508        anthracnose
+109        Manori        509        black knot
+110        Vanarvadi        516        leaf blister
+112        Bhusani        517        powdery mildew
+113        Vajagaon        526        Verticillium wilt
+114        Varshi        523        snow mold
+115        Indiranagar        517        powdery mildew
+116        Mulane        512        damping-off
+118        Palshet        505        crown gall
+119        Rasalpur        516        leaf blister
+120        Rolas        508        anthracnose
+121        Dhulgaon        502        bacterial wilt
+122        Nandesar        529        psorosis
+123        Maparwadi        519        gray mold rot
+125        Astane        516        leaf blister
+126        Satane        521        corn smut
+127        Hiranwadi        522        bunt smut
+128        Tisgaon        518        oak wilt
+129        Shirur        513        dutch elm disease
+201        Borgaon        511        clubroot
+202        Ambare        507        scab
+204        Kothali        514        ergot
+205        Mandki        526        Verticillium wilt
+207        Fulgaon        523        snow mold
+208        Dhanori        511        clubroot
+209        Hingane        519        gray mold rot
+210        Andhari        516        leaf blister
+216        Jalu        508        anthracnose
+217        Mukhpat        509        black knot
+218        Shelgaon        502        bacterial wilt
+220        Ambadi        530        spotted wilt
+221        Kasali        517        powdery mildew
+222        Ramgad        501        aster yellows
+223        Mehun        506        rot
+224        Gahule        521        corn smut
+225        Neri        525        scab
+226        Itave        516        leaf blister
+227        Waghare        509        black knot
+228        Lalmati        503        rice bacterial blight
+229        Tandalwadi        517        powdery mildew
+230        Bhortek        528        mosaic
+231        Haripura        501        aster yellows

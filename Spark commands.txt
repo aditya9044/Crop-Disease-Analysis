@@ -1,0 +1,103 @@
+﻿before launching spark-shell:
+---------------------------------------
+sudo cp mysql-connector-java-5.1.47-bin.jar /usr/lib/spark/lib
+sudo chmod 777 /usr/lib/spark/lib/mysql-connector-java-5.1.47-bin.jar
+
+
+To start spark shell:
+----------------------------
+spark-shell
+
+
+
+
+val connection="jdbc:mysql://localhost/raw"
+val mysql_props = new java.util.Properties
+mysql_props.setProperty("user","root")
+mysql_props.setProperty("password","cloudera")
+
+
+val place_master = sqlContext.read.jdbc(connection,"place_master",mysql_props)
+place_master.show
+place_master.count
+place_master.registerTempTable("place_master")
+
+
+val farmer_master = sqlContext.read.jdbc(connection,"farmer_master",mysql_props)
+farmer_master.show
+farmer_master.count
+farmer_master.registerTempTable("farmer_master")
+
+
+val crop_master = sqlContext.read.jdbc(connection,"crop_master",mysql_props)
+crop_master.show
+crop_master.count
+crop_master.registerTempTable("crop_master")
+
+
+val reason = sqlContext.read.jdbc(connection,"reason",mysql_props)
+reason.show
+reason.count
+reason.registerTempTable("reason")
+
+
+val disease = sqlContext.read.jdbc(connection,"disease",mysql_props)
+disease.show
+disease.count
+disease.registerTempTable("disease")
+
+
+val cultivation = sqlContext.read.jdbc(connection,"cultivation",mysql_props)
+cultivation.show
+cultivation.count
+cultivation.registerTempTable("cultivation")
+
+
+Transformation:
+---------------------------------------------
+val place_dim = sqlContext.sql("select * from place_master")
+place_dim.registerTempTable("place_dim")
+
+
+val crop_dim = sqlContext.sql("select * from crop_master")
+crop_dim.registerTempTable("crop_dim")
+
+
+val disease_dim = sqlContext.sql("select * from disease")
+disease_dim.registerTempTable("disease_dim")
+
+
+val reason_dim = sqlContext.sql("select * from reason")
+reason_dim.registerTempTable("reason_dim")
+
+
+val fact = sqlContext.sql("place_id, crop_id, sum(yield_estimated) as total_yield_estimated, sum(yield) as total_yield, round((sum(yield_estimated)-sum(yield))/sum(yield_estimated)*100,2), disease_id, reason_id from cultivation group by crop_id,place_id,disease_id,reason_id;")
+fact.registerTempTable("fact")
+
+
+create new DB in hive:
+------------------------------------------
+create database dwh_parquet;
+use dwh_parquet;
+
+
+
+
+Writing results back to hive:
+---------------------------------------------------
+place_dim.write.mode("overwrite").saveAsTable("dwh_parquet.place_dim");
+
+
+crop_dim.write.mode("overwrite").saveAsTable("dwh_parquet.crop_dim");
+
+
+disease_dim.write.mode("overwrite").saveAsTable("dwh_parquet.disease_dim");
+
+
+reason_dim.write.mode("overwrite").saveAsTable("dwh_parquet.reason_dim");
+
+
+crop_dim.write.mode("overwrite").saveAsTable("dwh_parquet.crop_dim");
+
+
+fact.write.mode("overwrite").saveAsTable("dwh_parquet.fact");
